@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Footsteps are among the most ubiquitous sound effects in multimedia applications. There is substantial research into understanding the acoustic features and 
+        developing synthesis models for footstep sound effects. In this paper, we present a first attempt at adopting neural synthesis for this task. We implemented two GAN-based architectures and compared 
+        the results with real recordings as well as six traditional sound synthesis methods. Our architectures reached realism scores as high as recorded samples, showing encouraging results for the task at hand.">
+        <meta name="author" content="Marco Comunità">
+        <title>Neural synthesis of footsteps sound effects with generative adversarial networks</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">    
+    </head>
+  <body>
+    <div class="jumbotron jumbotron-fluid bg-dark text-center">
+        <div class="container">
+            <h1 class="text-white">Neural synthesis of footsteps sound effects<br>with generative adversarial networks</h1>
+            <p class="lead">
+                <a href="https://mcomunita.github.io/">Marco Comunit&agrave;,</a> 
+                <a href="https://pquochuy.github.io/">Huy Phan,</a>
+                <a href="http://www.eecs.qmul.ac.uk/~josh/index.htm">Joshua D. Reiss</a> 
+            </p>
+            <!-- <a class="btn btn-success" href="https://www.aes.org/e-lib/browse.cfm?elib=21124" role="button">Paper</a>
+            <a class="btn btn-light" href="https://github.com/mcomunita/gfx_classifier" role="button">Code</a>
+            <a class="btn btn-danger" href="https://github.com/mcomunita/gfx_classifier_models_and_results" role="button">Models + Results</a>
+            
+            <p></p>
+            <p class="lead text-white text-center">Dataset:</p>
+            <div class="btn-group" role="group">
+                <a type="button" class="btn btn-secondary" href="https://doi.org/10.5281/zenodo.4298000">Mono Discrete</a>
+                <a type="button" class="btn btn-secondary" href="https://doi.org/10.5281/zenodo.4296040">Mono Continuous</a>
+                <a type="button" class="btn btn-secondary" href="https://doi.org/10.5281/zenodo.4298025">Poly Discrete</a>
+                <a type="button" class="btn btn-secondary" href="https://doi.org/10.5281/zenodo.4298017">Poly Continuous</a>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="container" style="width: 70%;">
+        <div class="section">
+            <h2>Abstract</h2>
+            <hr>
+            <p>
+                Footsteps are among the most ubiquitous sound effects in multimedia applications. There is substantial research into understanding the acoustic features and 
+                developing synthesis models for footstep sound effects. In this paper, we present a first attempt at adopting neural synthesis for this task. We implemented two GAN-based architectures and compared 
+                the results with real recordings as well as six traditional sound synthesis methods. Our architectures reached realism scores as high as recorded samples, showing encouraging results for the task at hand.
+            </p>
+        </div>
+
+        <br>
+        <div class="section">
+            <h2 class="">Samples</h2>
+            <hr>
+            <table class="table table-sm table-borderless">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Material</th>
+                        <th scope="col">Real</th>
+                        <th scope="col">WaveGAN</th>
+                        <th scope="col">HiFi-WaveGAN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Carpet</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_carpet.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_carpet.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_carpet.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Deck</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_deck.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_deck.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_deck.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Metal</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_metal.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_metal.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_metal.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Pavement</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_pavement.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_pavement.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_pavement.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Rug</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_rug.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_rug.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_rug.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Wood</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_wood.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_wood.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_wood.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Wood Internal</td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/real_wood_internal.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/wavegan_wood_internal.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td>
+                            <audio controls preload="metadata" style=" width:200px;">
+                                <source src="audio/hifiwave_woodinternal.wav" type="audio/mpeg">
+                            </audio>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <!-- <div class="section">
+            <h2>Citation</h2>
+            <hr>
+            <div style="background-color: lightgray;">
+                <pre>
+                <code>
+    @article{comunità2021guitar,
+        title={Guitar Effects Recognition and Parameter Estimation with Convolutional Neural Networks},
+        author={Comunità, Marco and  Stowell, Dan and  Reiss, Joshua D.},
+        journal={Journal of the Audio Engineering Society},
+        year={2021},
+        volume={69},
+        number={7/8},
+        pages={594-604},
+        doi={}, 
+        month={July}}</code>
+                </pre>
+            </div>
+        </div> -->
+
+        <!-- <hr>
+        <footer>
+            <p>*Submitted to ICASSP 2021</p>
+            <p>Send feedback and questions to <a href="http://christiansteinmetz.com">Christian Steinmetz</a>.</p>
+        </footer> -->
+
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+</body>
+</html>
